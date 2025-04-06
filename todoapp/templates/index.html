@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>To-do List App</title>
+</head>
+<body>
+    <form class="newtask" method="post">
+    <input name="task" id="task" value="{{ request.form['task'] }}" required>
+    <input type="submit" value="+">
+    </form>
+    <div class="todolist">
+        <h2> To-do List: </h2>
+        <ul>
+        {% for item in todo_list %}
+        <li> {{ item['task'] }} </li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>

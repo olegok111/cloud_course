@@ -1,0 +1,4 @@
+HOST = "localhost"
+DATABASE_USER = "root"
+DATABASE_NAME = "test"
+DATABASE_PORT = 3307
