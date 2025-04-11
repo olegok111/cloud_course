@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, current_app
 from werkzeug.exceptions import abort
 from MySQLdb.cursors import DictCursor
 from MySQLdb import OperationalError
@@ -15,9 +15,9 @@ def index():
         conn = get_db_connection()
     except OperationalError as mysql_err:
         if mysql_err.args[0] == 2002:
-            return render_template("err.html", err_text="Database is unavailable.")
+            return render_template("err.html", err_text="Database is unavailable.", debug_info=[current_app.config, mysql_err])
         else:
-            return render_template("err.html", err_text=str(mysql_err))
+            return render_template("err.html", err_text="Unknown database error.", debug_info=[current_app.config, mysql_err])
 
     c = DictCursor(conn)
 
