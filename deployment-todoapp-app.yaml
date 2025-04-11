@@ -1,29 +1,18 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: todoapp-app-depl
+  name: todoapp-app-pod
   labels:
-    app.kubernetes.io/name: todoapp-app-depl
+    app.kubernetes.io/name: todoapp-app-pod
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: todoapp-app-depl
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: todoapp-app-depl
-    spec:
-      containers:
-        - name: todoapp-app
-          image: todoapp-app:latest
-          imagePullPolicy: Never
-          ports:
-            - containerPort: 5000
-        - name: todoapp-db
-          image: todoapp-db:latest
-          imagePullPolicy: Never
-          ports:
-            - containerPort: 3306
+  containers:
+  - name: todoapp-app
+    image: todoapp-app:latest
+    imagePullPolicy: Never
+    ports:
+      - containerPort: 5000
+  - name: todoapp-db
+    image: todoapp-db:latest
+    imagePullPolicy: Never
+    ports:
+      - containerPort: 3306
