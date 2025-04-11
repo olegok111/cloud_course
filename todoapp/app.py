@@ -6,6 +6,7 @@ from todoapp.db import get_db_connection, close_db_connection
 
 the_app = Flask(__name__)
 the_app.config.from_pyfile("config.py")
+init_app()
 
 from todoapp import todolist
 the_app.register_blueprint(todolist.bp)
@@ -18,8 +19,12 @@ def init_db():
 
     conn = get_db_connection()
 
-    with the_app.open_resource("schema.sql") as script_file:
-        conn.query(script_file.read())
+    with the_app.open_resource("schema.sql", "r") as script_file:
+        queries = script_file.read().split(b";")[:-1]
+        for schema_query in queries:
+            conn.query(schema_query)
+
+        conn.commit()
 
     click.echo("Database initialized.")
 
