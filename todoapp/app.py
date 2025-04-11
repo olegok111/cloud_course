@@ -7,6 +7,7 @@ from todoapp.db import get_db_connection, close_db_connection
 the_app = Flask(__name__)
 the_app.config.from_pyfile("config.py")
 init_app()
+init_db()
 
 from todoapp import todolist
 the_app.register_blueprint(todolist.bp)
