@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 from werkzeug.exceptions import abort
 from MySQLdb.cursors import DictCursor
+from MySQLdb import OperationalError
 
 from todoapp.db import get_db_connection
 
@@ -10,7 +11,14 @@ bp = Blueprint("todolist", __name__)
 
 @bp.route("/", methods=["GET", "POST"])
 def index():
-    conn = get_db_connection()
+    try:
+        conn = get_db_connection()
+    except OperationalError as mysql_err:
+        if mysql_err.args[0] == 2002:
+            return render_template("err.html", err_text="Database is unavailable.")
+        else:
+            return render_template("err.html", err_text=str(mysql_err))
+
     c = DictCursor(conn)
 
     if request.method == "POST":
