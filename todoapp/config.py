@@ -1,4 +1,5 @@
 HOST = "todoapp-app-pod"
 DATABASE_USER = "root"
+DATABASE_PASSWORD = "0000"
 DATABASE_NAME = "todoapp"
 DATABASE_PORT = 3306

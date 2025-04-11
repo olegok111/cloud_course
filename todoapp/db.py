@@ -8,7 +8,8 @@ def get_db_connection() -> MySQLdb.Connection:
             current_app.config['HOST'],
             current_app.config['DATABASE_USER'],
             db=current_app.config['DATABASE_NAME'],
-            port=current_app.config['DATABASE_PORT']
+            port=current_app.config['DATABASE_PORT'],
+            password=current_app.config['DATABASE_PASSWORD']
         )
 
     return g.dbconn
