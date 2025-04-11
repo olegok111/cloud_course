@@ -3,6 +3,11 @@
 - `docker build . -f app.Dockerfile -t todoapp-app`
 - `docker build . -f db.Dockerfile -t todoapp-db`
 
+### Импорт образов в minikube
+
+- `minikube image load todoapp-app`
+- `minikube image load todoapp-db`
+
 ### Запуск на minikube
 
 - `kubectl apply -f deployment-todoapp-app.yaml`
